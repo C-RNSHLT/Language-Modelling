@@ -1,0 +1,9 @@
+../srilm-1.7.3/bin/cygwin64/ngram-count.exe -text TMpup.so.txt -order 3 -write ngramsdistri.txt -write-vocab vocab.txt -unk
+
+../srilm-1.7.3/bin/cygwin64/ngram-count.exe -vocab vocab.txt -read ngramsdistri.txt -order 3 -lm 3.TMpup.so.lm -kndiscount
+
+../srilm-1.7.3/bin/cygwin64/ngram.exe -order 3 -ppl pp.test.final.txt -lm 3.pp.pup.lm -mix-lm 3.SBCpup.lm -lambda 0.5 -mix-lm2 3.TMpup.so.lm -mix-lambda2 0.3 
+
+../srilm-1.7.3/bin/cygwin64/lattice-tool.exe -order 3 -in-lattice-list lattice.txt -noise-vocab silencewords.txt -lm 3.pp.pup.lm -mix-lm 3.SBCpup.lm -lambda 0.5 -mix-lm2 3.TMpup.so.lm -mix-lambda2 0.3  -out-lattice-dir upLat
+
+../srilm-1.7.3/bin/cygwin64/lattice-tool.exe -in-lattice-list upLats.txt -ref-file pp.test.final.txt -noise-vocab silencewords.txt -viterbi-decode > 3.pp_SBC_TM.so.hyp.txt
